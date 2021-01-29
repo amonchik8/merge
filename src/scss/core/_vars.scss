@@ -95,14 +95,19 @@ $C500: #324A94;
 $C600: #324B94;
 
 $B450: #065BEA;
+$B480: #0A4AB6;
+
+
+
 
 $logo-color: #22252C;
 $title-color: #333333;
 $text-color: #75777A;
 $button-default: $B450;
 $button-disable: #C6D0E0;
-
-
+$invalid-color: #FF4B26;
+$valid-color: #6FCF97;
+$button-hover-color: #0451D2;
 
 /* ---SCREENS--- */
 $screen-iphone-5: 320px;
@@ -133,3 +138,4 @@ $H28: calcRem(28px);
 $H20: calcRem(20px);
 $H16: calcRem(16px);
 $H14: calcRem(14px);
+$H12: calcRem(12px);

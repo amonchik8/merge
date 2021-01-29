@@ -25,11 +25,14 @@ export default {
   background-image: url("../assets/images/bgImage-1.png");
   background-size: cover;
   height: auto;
-  max-width: 800px;
+  max-width: 1000px;
   width: 100%;
   border-radius: 15px;
-  margin-right: 80px;
-  padding: 0 140px;
+   @include media {
+    margin-right: 80px;
+    max-width: 800px;
+  }
+  margin-right: 0;
   position: relative;
   &__image-wrapper {
     position: absolute;
@@ -39,6 +42,10 @@ export default {
   }
   &__image {
     border-radius: 15px;
+    display: none;
+    @include media {
+      display: block;
+    }
   }
 }
 </style>

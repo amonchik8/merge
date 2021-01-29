@@ -36,24 +36,37 @@ export default {
 <style lang="scss">
 .main {
   @include flex(flex-start, stretch, column);
-  max-width: 420px;
+  @include media {
+    max-width: 420px;
+  }
   width: 100%;
-  padding: 40px 0 30px;
+  padding: 12px 0;
+  @include media {
+    padding: 40px 0 30px;
+  }
 }
 .header {
-  @include flex(flex-start, flex-start, row);
+  @include media {
+    @include flex(flex-start, flex-start, row);
+  }
+  @include flex(center, flex-start, row);
 }
 .logo {
-  display: block;
+  @include media {
+    margin-bottom: 120px;
+  }
   height: 30px;
-  margin-bottom: 120px;
+  margin-bottom: 20px;
   &__image {
     width: 250px;
     height: 30px;
   }
 }
 .footer {
-  @include flex(flex-start, flex-end, row);
+  @include media {
+    @include flex(flex-start, flex-end, row);
+  }
+  @include flex(center, flex-end, row);
   flex-grow: 1;
 }
 .list {

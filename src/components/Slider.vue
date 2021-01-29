@@ -1,7 +1,13 @@
 <template>
   <div class="slider">
     <div class="slider__slide">
-      <img class="slider__image" src="../assets/images/slide-1.png" alt="img" />
+      <div class="slider__image-wrapper">
+        <img
+          class="slider__image"
+          src=""
+          alt="img"
+        />
+      </div>
       <h2 class="slider__title">Tokenplace</h2>
       <p class="slider__subtitle">Multi-exchange Trading Terminal</p>
     </div>
@@ -20,6 +26,7 @@ export default {
   z-index: 1;
   &__slide {
     @include flex(center, center, column);
+    padding: 0 12px;
   }
   &__image {
     margin-bottom: 60px;

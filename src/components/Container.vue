@@ -20,9 +20,15 @@ export default {
 
 <style lang="scss">
 .container {
-  @include flex(center, stretch, row);
-  padding: 20px 120px 20px 20px;
+  @include flex(center, stretch, row, wrap-reverse);
+  @include media {
+    @include flex(center, stretch, row);
+    padding: 20px 120px 20px 20px;
+  }
+  padding: 12px;
   margin: 0 auto;
-  height: 100vh;
+  @include media {
+    height: 100vh;
+  }
 }
 </style>
