@@ -1,5 +1,5 @@
 <template>
-  <button class="button" type="submit">
+  <button @click="(e) => $emit('click', e)" class="button" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -7,6 +7,9 @@
 <script>
 export default {
   name: "Button",
+  props: {
+    disabled: Boolean,
+  },
 };
 </script>
 
@@ -19,19 +22,17 @@ export default {
   border-radius: 8px;
   padding: 16px 0;
   margin-bottom: 12px;
-  background-color: $button-disable;
+  background-color: $B450;
+  transition: background-color 0.2s ease;
+  @include hover {
+    background-color: $button-hover-color;
+  }
   @include media {
     margin-bottom: 0;
   }
 }
-.button-is-valid {
-  background-color: $B450;
-  transition: background-color .2s ease;
-  @include hover {
-      background-color: $button-hover-color;
-  }
-}
-.button-disable {
-
+.button:disabled {
+  cursor: not-allowed;
+  background-color: $button-disable;
 }
 </style>

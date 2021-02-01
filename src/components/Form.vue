@@ -1,98 +1,95 @@
 <template>
-  <form id="form" class="form" @submit.prevent="checkForm" novalidate="true">
+  <form class="form" @submit.prevent="onSubmit">
     <h1 class="form__title">Sign in</h1>
     <p class="form__subtitle">
       Don’t have an account?
       <a class="form__sign-up" href="https://merge/Sign-up">Sign up now</a>
     </p>
-    <div class="form__input-wrapper">
-      <div class="form__label-wrapper">
-        <label class="form__input-label" for="email">Email</label>
-        <span
-          v-if="$v.form.email.$dirty && !$v.form.email.required"
-          class="invalid-feedback"
-          >Invalid email</span
-        >
-        <span
-          v-if="$v.form.email.$dirty && !$v.form.email.email"
-          class="invalid-feedback"
-          >Invalid email</span
-        >
-      </div>
-      <input
-        id="email"
-        v-model="form.email"
-        type="email"
-        name="email"
-        class="form__input"
-        :class="$v.form.email.$error ? 'input-invalid' : ''"
-      />
-      <div class="form__label-wrapper">
-        <label class="form__input-label" for="password">Password</label>
-        <span
-          v-if="$v.form.password.$dirty && !$v.form.password.required"
-          class="invalid-feedback"
-          >Invalid format too short</span
-        >
-        <span
-          v-if="$v.form.password.$dirty && !$v.form.password.minLength"
-          class="invalid-feedback"
-          >Invalid format too short</span
-        >
-      </div>
-      <div>
-        <a class="form__forgot" href="https://merge/Forgot-password"
-          >Forgot your password?</a
-        >
-        <input
-          id="password"
-          v-model="form.password"
-          type="password"
-          name="password"
-          class="form__input form__input--password"
-          :class="$v.form.password.$error ? 'input-invalid' : ''"
-        />
-      </div>
+    <Input
+      v-model="email"
+      :has-error="emailHasError"
+      :error-message="emailErrorMessage"
+      :valid="emailValid"
+      label="Email"
+      type="email"
+      required
+      @blur="emailHasError = !emailValid"
+      @focus="emailHasError = false"
+    />
+    <div class="form__input--password">
+    <Input
+      v-model="password"
+      :has-error="passwordHasError"
+      :error-message="passwordErrorMessage"
+      :valid="passwordValid"
+      :input="inputValid"
+      label="Password"
+      type="password"
+      required
+      @blur="passwordHasError = !passwordValid"
+      @focus="passwordHasError = false" />
+      <a class="form__forgot" href="https://merge/Forgot-password"
+      >Forgot your password?</a>
     </div>
-    <Button>Sign in</Button>
+
+    <Button :disabled="disabled">Sign in</Button>
   </form>
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, minLength, email } from "vuelidate/lib/validators";
-
 import Button from "./Button";
+import Input from "./Input";
+
 export default {
-  mixins: [validationMixin],
-  data() {
-    return {
-      form: {
-        email: "",
-        password: "",
-      },
-    };
-  },
-  validations: {
-    form: {
-      email: {
-        required,
-        email,
-      },
-      password: {
-        required,
-        minLength: minLength(8),
-      },
-    },
-  },
-  methods: {
-    checkForm() {
-      this.$v.form.$touch();
-    },
-  },
   name: "Form",
   components: {
     Button,
+    Input,
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      emailHasError: false,
+      passwordHasError: false,
+    };
+  },
+  computed: {
+    emailValid() {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(this.email).toLowerCase());
+    },
+    passwordValid() {
+      return this.password.length >= 4;
+    },
+    emailErrorMessage() {
+      switch (true) {
+        case !this.email:
+          return "Enter email";
+        case !this.emailValid:
+          return "Invalid email";
+        default:
+          return "";
+      }
+    },
+    passwordErrorMessage() {
+      switch (true) {
+        case !this.password:
+          return "Enter password";
+        case !this.passwordValid:
+          return "Invalid format too short";
+        default:
+          return "";
+      }
+    },
+    disabled() {
+      return !this.emailValid || !this.passwordValid;
+    },
+  },
+  methods: {
+    onSubmit() {
+      alert("Sign in");
+    },
   },
 };
 </script>
@@ -124,60 +121,17 @@ export default {
       @include text($H14, 600, $B480);
     }
   }
-  &__input-wrapper {
-    @include flex(flex-start, stretch, column);
+  &__input--password {
     width: 100%;
-  }
-  &__label-wrapper {
-    @include flex(space-between, center);
-    margin-bottom: 6px;
-  }
-  &__input-label {
-    width: 10px;
-    @include text($H14, 600, $text-color);
-    line-height: 1.7;
+    position: relative;
   }
   &__forgot {
     @include text($H14, 600, $text-color);
     position: absolute;
+    top: 22.5px;
     z-index: 1;
     padding: 15px 0;
     right: 20px;
   }
-  &__input {
-    @include text($H14, 600, $text-color);
-    width: 100%;
-    padding: 15px 20px;
-    border: 1px solid #e0e5e9;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s ease;
-    margin-bottom: 12px;
-    @include media {
-      margin-bottom: 30px;
-    }
-    &--password {
-      position: relative;
-    }
-    &:focus {
-      border-color: $B450;
-    }
-  }
-}
-.input-invalid {
-  border: 1px solid $invalid-color;
-  &:focus {
-    border-color: $invalid-color;
-  }
-}
-.input-valid {
-  border: 1px solid $valid-color;
-  &:focus {
-    border-color: $valid-color;
-  }
-}
-.invalid-feedback {
-  @include text($H12, 400, $invalid-color);
-  transition: all 0.2s ease;
 }
 </style>
