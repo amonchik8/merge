@@ -130,7 +130,7 @@ export default {
   &__forgot {
     @include text($H14, 600, $text-color);
     position: absolute;
-    top: 30px;
+    top: 31px;
     z-index: 1;
     padding: 15px 0;
     right: 20px;
