@@ -24,6 +24,9 @@ export default {
   margin-bottom: 12px;
   background-color: $B450;
   transition: background-color 0.2s ease;
+  &:not(:disabled) {
+    box-shadow: 0 10px 10px 1px $B420;
+  }
   @include hover {
     background-color: $button-hover-color;
   }

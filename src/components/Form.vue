@@ -22,7 +22,6 @@
       :has-error="passwordHasError"
       :error-message="passwordErrorMessage"
       :valid="passwordValid"
-      :input="inputValid"
       label="Password"
       type="password"
       required
@@ -101,6 +100,7 @@ export default {
   &__title {
     margin: 0 auto;
     @include text($H28, 700, $title-color);
+    letter-spacing: 0.2px;
     @include media {
       margin: 0 0 15px;
     }
@@ -109,6 +109,7 @@ export default {
   &__subtitle {
     margin: 0 auto;
     @include text($H14, 600, $title-color);
+    letter-spacing: 0.2px;
     @include media {
       margin: 0 0 90px;
     }
@@ -117,6 +118,7 @@ export default {
   &__sign-up {
     @include text($H14, 600, $B450);
     transition: color 0.2s ease;
+    letter-spacing: 0.2px;
     @include hover {
       @include text($H14, 600, $B480);
     }
@@ -128,10 +130,11 @@ export default {
   &__forgot {
     @include text($H14, 600, $text-color);
     position: absolute;
-    top: 22.5px;
+    top: 30px;
     z-index: 1;
     padding: 15px 0;
     right: 20px;
+    letter-spacing: 0.2px;
   }
 }
 </style>

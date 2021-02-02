@@ -53,7 +53,7 @@ export default {
     @include text($H14, 600, $title-color);
     outline: none;
     width: 100%;
-    padding: 15px 20px;
+    padding: 17px 20px;
     border: 1px solid #e0e5e9;
     border-radius: 8px;
     transition: border-color 0.2s ease;
@@ -63,9 +63,10 @@ export default {
     }
   }
   &__label-wrapper {
-    @include text($H14, 600, $text-color);
+    @include text($H14, 600, $title-color);
     @include flex(space-between, center);
-    margin-bottom: 6px;
+    margin-bottom: 12px;
+    letter-spacing: 0.2px;
   }
   &__error-message {
     color: $invalid-color;
